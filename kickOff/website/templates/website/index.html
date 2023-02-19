@@ -1,0 +1,14 @@
+{% extends 'website/base.html'%}
+
+{% block content %}
+    <h1>{{title}}</h1>
+    <ul>
+        {% for p in players %}
+            <li>
+                <h2>{{p.fullName}}</h2>
+                <p>{{p.about}}</p>
+                <hr>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
