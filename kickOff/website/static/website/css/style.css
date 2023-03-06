@@ -1,3 +1,23 @@
 body{
-    background-color: aqua;
+    margin: 0;
+    padding: 0;
 }
+
+.container{
+    width: 80%;
+}
+.content{
+    display: flex;
+    justify-content: space-between;
+}
+.content > div{
+    width: 40%;
+}
+.content > ul{
+    display: flex;
+    justify-content: space-between;
+}
+.content > ul > li{
+    list-style-type: none;
+}
+
