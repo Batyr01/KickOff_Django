@@ -1,0 +1,31 @@
+{% extends 'website/base.html'%}
+{% load static %}
+{% block style %}
+<link type="text/css" href="{% static 'website/css/index.css' %}" rel="stylesheet"/>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <ul class="list-articles">
+        {% for c in leagues %}
+        <li>
+            <div class="article-panel">
+<!--                <p class="first">Клуб: {{c.league}}</p>-->
+<!--                <p class="last">Лига: {{p.club}}</p>-->
+            </div>
+
+            {% if c.logo %}
+            <p><img class="img-article-left thumb" src="{{c.logo.url}}"></p>
+            {% endif %}
+
+            <h2>{{c.name}}</h2>
+            {% autoescape on %}
+            {{c.about|linebreaks|truncatewords:50}}
+            {% endautoescape %}
+            <div class="clear"></div>
+            <p class="link-read-post"><a href="{{ c.get_absolute_url }}">Читать дальше</a></p>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

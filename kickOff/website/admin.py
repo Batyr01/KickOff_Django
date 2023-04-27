@@ -16,5 +16,12 @@ class ClubAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     prepopulated_fields = {"slug": ("name",)}
 
+class LeagueAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    list_display_links = ('id', 'name')
+    search_fields = ('name',)
+    prepopulated_fields = {"slug": ("name",)}
+
 admin.site.register(Players, PlayersAdmin)
 admin.site.register(Club, ClubAdmin)
+admin.site.register(League, LeagueAdmin)

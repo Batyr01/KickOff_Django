@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "debug_toolbar",
-    'website.apps.WebsiteConfig',
     'captcha',
+    'website.apps.WebsiteConfig',
+
 ]
 
 MIDDLEWARE = [

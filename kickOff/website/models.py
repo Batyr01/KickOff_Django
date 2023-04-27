@@ -20,15 +20,24 @@ class Players(models.Model):
     def get_absolute_url(self):
         return reverse('player', kwargs={'player_slug': self.slug})
 
+    def get_players_by_club(self):
+        return reverse('')
+
     class Meta:
-        verbose_name = 'Игроки'
+        verbose_name = 'Игрок'
         verbose_name_plural = 'Игроки'
         ordering = ['club']
 
 
 class Club(models.Model):
-    name = models.CharField(max_length=100, db_index=True, verbose_name='Клуб')
+    name = models.CharField(max_length=100, db_index=True, verbose_name='Название Клуба')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
+    logo = models.ImageField(upload_to="photos/%Y/%m/%d/", null=True, verbose_name="Логотип")
+    about = models.TextField(blank=True, verbose_name="Про клуб")
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    time_update = models.DateTimeField(auto_now=True, verbose_name="Дата изменения")
+    is_published = models.BooleanField(default=True, verbose_name="Публикация")
+    league = models.ForeignKey('League', on_delete=models.PROTECT, null=True, verbose_name="Лига клуба")
 
     def __str__(self):
         return self.name
@@ -37,6 +46,27 @@ class Club(models.Model):
         return reverse('club', kwargs={'club_slug': self.slug})
 
     class Meta:
-        verbose_name = 'Клубы'
+        verbose_name = 'Клуб'
         verbose_name_plural = 'Клубы'
+        ordering = ['league']
+
+
+class League(models.Model):
+    name = models.CharField(max_length=100, db_index=True, verbose_name='Название лиги')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
+    logo = models.ImageField(upload_to="photos/%Y/%m/%d/", null=True, verbose_name="Логотип")
+    about = models.TextField(blank=True, verbose_name="Про лигу")
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    time_update = models.DateTimeField(auto_now=True, verbose_name="Дата изменения")
+    is_published = models.BooleanField(default=True, verbose_name="Публикация")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('league', kwargs={'league_slug': self.slug})
+
+    class Meta:
+        verbose_name = 'Лига'
+        verbose_name_plural = 'Лиги'
         ordering = ['id']

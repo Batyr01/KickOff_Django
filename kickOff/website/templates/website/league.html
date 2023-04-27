@@ -1,0 +1,15 @@
+{% extends 'website/base.html'%}
+{% load static %}
+{% block style %}
+    <link type="text/css" href="{% static 'website/css/index.css' %}" rel="stylesheet" />
+{% endblock %}
+{% block content %}
+<h1>{{league.name}}</h1>
+
+{% if league.logo %}
+<p><img class="img-article-left" src="{{league.logo.url}}"></p>
+<a href="{% url 'league_clubs' league_slug=league.slug %}" class="btn btn-outline-primary">Клубы Лиги</a>
+{% endif %}
+
+{{league.about|linebreaks}}
+{% endblock %}
