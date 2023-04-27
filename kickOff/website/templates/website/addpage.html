@@ -1,0 +1,16 @@
+{% extends 'website/base.html'%}
+{% load static %}
+{% block style %}
+    <link type="text/css" href="{% static 'website/css/index.css' %}" rel="stylesheet" />
+{% endblock %}
+{% block content %}
+<form action="{% url 'add_page' %}" method="post", enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="fomr-error">{{ form.non_field_errors }}</div>
+{% for f in form %}
+    <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}</label>{{f}}</p>
+    <div class="form-error">{{ f.errors}}</div>
+{% endfor %}
+    <button class="btn btn-outline-primary" type="submit">Add</button>
+</form>
+{% endblock %}

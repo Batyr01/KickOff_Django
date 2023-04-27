@@ -1,13 +1,58 @@
 {% extends 'website/base.html'%}
-
+{% load static %}
+{% block style %}
+<link type="text/css" href="{% static 'website/css/index.css' %}" rel="stylesheet"/>
+{% endblock %}
 {% block content %}
-    <h1>{{title}}</h1>
-    <ul>
-        {% for p in players %}
-            <li>
-                <h2>{{p.fullName}}</h2>
-                <p>{{p.about}}</p>
-            </li>
-        {% endfor %}
-    </ul>
+<!--<ul>-->
+<!--    {% for p in players %}-->
+<!--    <div class="card">-->
+<!--        <li>-->
+<!--            <h2>{{p.fullName}}</h2>-->
+<!--            <p>{{p.about}}</p>-->
+<!--        </li>-->
+<!--        <a href="{{p.get_absolute_url}}">Info</a>-->
+<!--    </div>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+<div class="row">
+    {% for p in players %}
+<!--    <div class="card col-7" style="width: 18rem;">-->
+<!--        {% if p.photo %}-->
+<!--        <img src="{{p.photo.url}}" class="card-img-top" alt="...">-->
+<!--        {% endif %}-->
+<!--        <div class="card-body">-->
+<!--            <h5 class="card-title">{{p.fullName}}</h5>-->
+<!--            <p class="card-text">{{p.about}}</p>-->
+<!--        </div>-->
+<!--            <ul class="list-group list-group-flush">-->
+<!--                <li class="list-group-item">Элемент</li>-->
+<!--                <li class="list-group-item">Второй элемент</li>-->
+<!--                <li class="list-group-item">Третий элемент</li>-->
+<!--            </ul>-->
+<!--            <div class="card-body">-->
+<!--                <a href="#" class="card-link">Ссылка карточки</a>-->
+<!--                <a href="#" class="card-link">Другая ссылка</a>-->
+<!--            </div>-->
+<!--    </div>-->
+    <div class="card mb-3 mx-4" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                {% if p.photo %}
+                <img src="{{ p.photo.url }}" class="img-fluid rounded-start" alt="...">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{p.fullName}}</h5>
+                    <p class="card-text">{{p.about}}</p>
+                    <p class="card-text"><small class="text-muted">Последнее обновление 3 мин. назад</small></p>
+                    <a href="{{p.get_absolute_url}}">Info</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

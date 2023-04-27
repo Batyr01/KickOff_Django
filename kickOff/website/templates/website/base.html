@@ -5,24 +5,114 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    <link type="text/css" href="{% static 'website/css/style.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'website/css/base.css' %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static 'website/css/b-css/bootstrap.css' %}" rel="stylesheet"/>
+    <script type="text/javascript" src="{% static 'website/js/b-js/bootstrap.bundle.js' %}"></script>
+    {% block style %}
+    {% endblock %}
 </head>
 <body>
-    <div class="header">
-        <div class="container">
-            <div class="content">
-                <h3>KickOff</h3>
-                <div>
-                    <ul class="nav-menu">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">News</a></li>
-                        <li><a href="#">Football Stars</a></li>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="#">Kick Off</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'aboutFootball' %}">About Football</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'add_page' %}">Add Player</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Football Clubs
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% if club_selected == 0 %}
+                        <li><a class="dropdown-item selected" href="#">All Club Players</a></li>
+                        {% else %}
+                        <li><a class="dropdown-item" href="{% url 'home' %}">All Club Players</a></li>
+                        {% endif %}
+
+                        {% for c in clubs %}
+                        {% if c.pk == club_selected %}
+                        <li><a class="dropdown-item selected" href="#">{{ c.name }}</a></li>
+                        {% else %}
+                        <li><a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">{{user.username}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{%url 'logout'%}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{%url 'register'%}">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{%url 'login'%}">Auth</a>
+                    </li>
+                    {% endif %}
                 </ul>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
-    {% block content %}
-    {% endblock %}
+</nav>
+<div class="main">
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+        {% if page_obj.has_other_pages %}
+        <nav class="list-pages">
+            <ul>
+                {%if page_obj.has_previous%}
+                <li class="page-num">
+                    <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+                </li>
+                {%endif%}
+                {% for p in paginator.page_range %}
+                {% if page_obj.number == p %}
+                <li class="page-num">
+                    {{p}}
+                </li>
+                {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                <li class="page-num">
+                    <a href="?page={{ p }}">{{p}}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                {%if page_obj.has_next%}
+                <li class="page-num">
+                    <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                </li>
+                {%endif%}
+            </ul>
+        </nav>
+        {%endif%}
+    </div>
+</div>
+<div class="footer bg-primary">
+    <div class="container">
+        <div class="content">
+            Foot
+        </div>
+    </div>
+</div>
 </body>
 </html>

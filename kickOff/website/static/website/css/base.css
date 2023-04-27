@@ -1,0 +1,45 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+.header{
+    background-color: forestgreen;
+    color: white;
+}
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+.header .content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header .content > div{
+    width: 30%;
+}
+.header .content  ul{
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+.header .content ul li{
+    list-style-type: none;
+}
+.header .content ul li a{
+    color: white;
+    text-decoration: none;
+}
+.header .content ul li a:hover{
+    color: navajowhite;
+}
+.main{
+    min-height: 800px;
+}
+.footer{
+    width: 100%;
+    height: 100px;
+    background-color: forestgreen;
+}
+

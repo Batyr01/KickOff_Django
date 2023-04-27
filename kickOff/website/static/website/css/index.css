@@ -1,0 +1,28 @@
+.card{
+    background-color: whitesmoke;
+    border: 0.2px solid gray;
+    border-radius: 20px;
+    min-height: 130px;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+.card h2{
+    margin: 0 0 10px;
+}
+.card p{
+    font-size: 18px;
+}
+.card li{
+    list-style-type: none;
+}
+.card a{
+    text-decoration: none;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    display: block;
+    background-color: forestgreen;
+    width: 70px;
+    height: 30px;
+}

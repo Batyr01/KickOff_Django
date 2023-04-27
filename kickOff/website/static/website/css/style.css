@@ -1,23 +1,33 @@
 body{
     margin: 0;
     padding: 0;
+    background-color: antiquewhite;
 }
-
+.header{
+    background-color: white;
+}
 .container{
     width: 80%;
+    margin: 0 auto;
 }
-.content{
+.header .content{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
-.content > div{
-    width: 40%;
+.header .content > div{
+    width: 30%;
 }
-.content > ul{
+.header .content  ul{
     display: flex;
     justify-content: space-between;
+    padding: 0;
 }
-.content > ul > li{
+.header .content ul li{
     list-style-type: none;
+}
+.header .content ul li a{
+    color: black;
+    text-decoration: none;
 }
 
