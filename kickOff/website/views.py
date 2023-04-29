@@ -61,15 +61,31 @@ class PlayersClub(PlayersMixin, ListView):
     model = Players
     template_name = 'website/players.html'
     context_object_name = 'players'
-    allow_empty = False
+    allow_empty = True
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title='Club - ' + str(context['players'][0].club))
+        c_def = self.get_user_context(title='Club')
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
         return Players.objects.filter(club__slug=self.kwargs['club_slug'], is_published=True).select_related('club')
+
+class LeagueClubs(ClubMixin, ListView):
+    model = Club
+    template_name = 'website/clubs.html'
+    context_object_name = 'clubs'
+    allow_empty = True
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        league = League.objects.get(slug=self.kwargs['league_slug'])
+        clubs = Club.objects.filter(league_id = league.id)
+        c_def = self.get_user_context(title='League', clubs = clubs)
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_queryset(self):
+        return Club.objects.filter(league__slug=self.kwargs['league_slug'], is_published=True)
 # About Players --------------------------------------------------------------------------------------------------------
 
 
@@ -103,19 +119,7 @@ class ShowClub(ClubMixin, DetailView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-class LeagueClubs(ClubMixin, ListView):
-    model = Club
-    template_name = 'website/clubs.html'
-    context_object_name = 'clubs'
-    allow_empty = False
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title='League - ' + str(context['clubs'][0].league))
-        return dict(list(context.items()) + list(c_def.items()))
-
-    def get_queryset(self):
-        return Club.objects.filter(league__slug=self.kwargs['league_slug'], is_published=True).select_related('league')
 # About Clubs --------------------------------------------------------------------------------------------------------
 
 
@@ -133,7 +137,7 @@ class ShowLeagues(LeagueMixin, ListView):
         return dict(list(context.items())+list(c_def.items()))
 
     def get_queryset(self):
-        return Club.objects.filter(is_published=True)
+        return League.objects.filter(is_published=True)
 
 
 class ShowLeague(LeagueMixin, DetailView):

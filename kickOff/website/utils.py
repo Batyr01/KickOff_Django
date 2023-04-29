@@ -14,8 +14,8 @@ class ClubMixin:
     paginate_by = 8
     def get_user_context(self, **kwargs):
         context = kwargs
-        clubs = Club.objects.all()
-        context['clubs'] = clubs
+        # clubs = Club.objects.all()
+        # context['clubs'] = clubs
         return context
 
 

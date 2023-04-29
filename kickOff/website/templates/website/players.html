@@ -5,6 +5,7 @@
 {% endblock %}
 {% block content %}
 <div class="row">
+    {% if players %}
     <ul class="list-articles">
         {% for p in players %}
         <li>
@@ -26,6 +27,12 @@
         </li>
         {% endfor %}
     </ul>
+    {% else %}
+    <h2 class="text-center">
+        Don't have players
+    </h2>
+    {% endif %}
+
     <!--{% for p in players %}
     <div class="card mb-3 mx-4" style="max-width: 540px;">
         <div class="row g-0">

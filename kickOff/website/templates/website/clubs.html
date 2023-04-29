@@ -5,6 +5,7 @@
 {% endblock %}
 {% block content %}
 <div class="row">
+    {% if clubs %}
     <ul class="list-articles">
         {% for c in clubs %}
         <li>
@@ -26,6 +27,11 @@
         </li>
         {% endfor %}
     </ul>
+    {% else %}
+    <h2 class="text-center">
+        Don't have Clubs
+    </h2>
+    {% endif %}
 </div>
 
 {% endblock %}
