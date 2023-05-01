@@ -1,13 +1,21 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView
+from django.forms import model_to_dict
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework import generics, viewsets
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import *
 from .forms import *
+from .permissions import IsAdminOrReadOnly
+from .serializer import PlayersSerializer
 from .utils import  *
 
 
@@ -15,6 +23,33 @@ def home(request):
     return render(request, 'website/index.html', {'title': 'Index Page'})
 
 
+# About Api ------------------------------------------------------------------------------------------------------------
+
+# class PlayersViewSet(viewsets.ModelViewSet):
+#     queryset = Players.objects.all()
+#     serializer_class = PlayersSerializer
+class PlayersAPIListPagination(PageNumberPagination):
+    page_size = 3
+    page_size_query_param = 'page_size'
+    max_page_size = 10000
+
+class PlayersAPIView(generics.ListCreateAPIView):
+    queryset = Players.objects.all()
+    serializer_class = PlayersSerializer
+    permission_classes = (IsAdminOrReadOnly, )
+    pagination_class = PlayersAPIListPagination
+
+# class PlayersAPIUpdate(generics.UpdateAPIView):
+#     queryset = Players.objects.all()
+#     serializer_class = PlayersSerializer
+
+
+class PlayersAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Players.objects.all()
+    serializer_class = PlayersSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+
+# About Api ------------------------------------------------------------------------------------------------------------
 
 
 # About Players --------------------------------------------------------------------------------------------------------
@@ -71,21 +106,7 @@ class PlayersClub(PlayersMixin, ListView):
     def get_queryset(self):
         return Players.objects.filter(club__slug=self.kwargs['club_slug'], is_published=True).select_related('club')
 
-class LeagueClubs(ClubMixin, ListView):
-    model = Club
-    template_name = 'website/clubs.html'
-    context_object_name = 'clubs'
-    allow_empty = True
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        league = League.objects.get(slug=self.kwargs['league_slug'])
-        clubs = Club.objects.filter(league_id = league.id)
-        c_def = self.get_user_context(title='League', clubs = clubs)
-        return dict(list(context.items()) + list(c_def.items()))
-
-    def get_queryset(self):
-        return Club.objects.filter(league__slug=self.kwargs['league_slug'], is_published=True)
 # About Players --------------------------------------------------------------------------------------------------------
 
 
@@ -119,7 +140,21 @@ class ShowClub(ClubMixin, DetailView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
+class LeagueClubs(ClubMixin, ListView):
+    model = Club
+    template_name = 'website/clubs.html'
+    context_object_name = 'clubs'
+    allow_empty = True
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        league = League.objects.get(slug=self.kwargs['league_slug'])
+        clubs = Club.objects.filter(league_id = league.id)
+        c_def = self.get_user_context(title='League', clubs = clubs)
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_queryset(self):
+        return Club.objects.filter(league__slug=self.kwargs['league_slug'], is_published=True)
 # About Clubs --------------------------------------------------------------------------------------------------------
 
 

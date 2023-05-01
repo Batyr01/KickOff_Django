@@ -26,5 +26,8 @@ urlpatterns = [
     path('register/', RegisterUser.as_view(), name='register'),
     path('logout/', logout_user, name='logout'),
 
+    #API
+
+
 ]
 

@@ -33,7 +33,7 @@ class RegisterUserForm(UserCreationForm):
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-control'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-
+    captcha = CaptchaField(label='')
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
@@ -52,4 +52,3 @@ class ContactForm(forms.Form):
     name = forms.CharField(label='User name', max_length=255)#widget=forms.TextInput(attrs={'class': 'form-control'})
     email = forms.EmailField(label='Email')#, widget=forms.EmailInput(attrs={'class': 'form-control'})
     content = forms.CharField(label='Content', widget=forms.Textarea(attrs={'cols': 60, 'rows': 10 ,'class': 'form-control'}))
-    captcha = CaptchaField()

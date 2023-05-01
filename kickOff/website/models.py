@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.urls import reverse
 
 from django.db import models
@@ -57,6 +58,7 @@ class Players(models.Model):
     time_update = models.DateTimeField(auto_now=True, verbose_name="Дата изменения")
     is_published = models.BooleanField(default=True, verbose_name="Публикация")
     club = models.ForeignKey(Club, on_delete=models.PROTECT, null=True, verbose_name="Клуб игрока")
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.fullName
