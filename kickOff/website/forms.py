@@ -29,10 +29,10 @@ class AddPlayerForm(forms.ModelForm):
 
 
 class RegisterUserForm(UserCreationForm):
-    username = forms.CharField(label='User name', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    password2 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(label='Почта', widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label='Повторный Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     captcha = CaptchaField(label='')
     class Meta:
         model = User
@@ -40,8 +40,8 @@ class RegisterUserForm(UserCreationForm):
 
 
 class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(label='User name', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User

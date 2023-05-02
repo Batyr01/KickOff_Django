@@ -58,7 +58,7 @@ class Players(models.Model):
     time_update = models.DateTimeField(auto_now=True, verbose_name="Дата изменения")
     is_published = models.BooleanField(default=True, verbose_name="Публикация")
     club = models.ForeignKey(Club, on_delete=models.PROTECT, null=True, verbose_name="Клуб игрока")
-    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE, null=True, default=1)
 
     def __str__(self):
         return self.fullName

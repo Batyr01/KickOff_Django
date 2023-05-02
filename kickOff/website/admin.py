@@ -25,7 +25,7 @@ class ClubAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     prepopulated_fields = {"slug": ("name",)}
     fields = (
-        'name', 'slug', 'logo', 'about', 'get_html_photo', 'time_create', 'time_update', 'is_published')
+        'name', 'slug', 'logo', 'about', 'league', 'get_html_photo', 'time_create', 'time_update', 'is_published')
     readonly_fields = ('get_html_photo', 'time_create', 'time_update')
 
     def get_html_photo(self, object):
