@@ -1,6 +1,63 @@
 {% extends 'website/base.html'%}
+{% load static %}
+
+{% block style %}
+<link type="text/css" href="{% static 'website/css/index.css' %}" rel="stylesheet"/>
+{% endblock %}
 
 {% block content %}
-<h1>{{title}}</h1>
-<p>Content</p>
+<div class="row">
+    <div class="card" style="width: 25rem;">
+        <img src="{% static 'website/images/newsAboutMessi.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Возвращение Месси</h5>
+            <p class="card-text">Месси пришёл в «ПСЖ» из «Барселоны» в 2021 году после того, как каталонский клуб не
+                стал
+                продлевать его контракт. Ранее сообщалось, что испанская команда рассматривает возможность вернуть
+                аргентинского форварда.</p>
+            <a href="#" class="btn btn-primary">Перейти</a>
+        </div>
+    </div>
+    <div class="col-8">
+        <ul class="list-articles">
+            <li>
+                <div class="article-panel">
+                    <p class="first">источник : Vesti.kz</p>
+                    <p class="last"></p>
+                </div>
+                <p><img class="img-article-left thumb" src="{% static 'website/images/news1.jpg.webp' %}"></p>
+                <h2>Звезда ПСЖ близок к смене клуба после скандала с женой</h2>
+                <div class="clear">По информации Football Insider, "Манчестер Юнайтед" заинтересован в приобретении
+                    защитника сборной Марокко и ПСЖ Ашрафа Хакими, сообщает корреспондент Vesti.kz.</div>
+                <p class="link-read-post"><a href="">Читать дальше</a></p>
+            </li>
+        </ul>
+        <ul class="list-articles">
+            <li>
+                <div class="article-panel">
+                    <p class="first">источник : Vesti.kz</p>
+                    <p class="last"></p>
+                </div>
+                <p><img class="img-article-left thumb" src="{% static 'website/images/news2.jpg.webp' %}"></p>
+                <h2>Лидер "Реала" приблизился к рекорду Месси в Ла Лиге</h2>
+                <div class="clear">Форвард мадридского "Реала" Карим Бензема, поднялся на четвертое место в списке
+                    легионеров с наибольшим количеством сыгранных матчей в Ла Лиге, сообщает корреспондент Vesti.kz.</div>
+                <p class="link-read-post"><a href="">Читать дальше</a></p>
+            </li>
+        </ul>
+        <ul class="list-articles">
+            <li>
+                <div class="article-panel">
+                    <p class="first">источник : Vesti.kz</p>
+                    <p class="last"></p>
+                </div>
+                <p><img class="img-article-left thumb" src="{% static 'website/images/news3.jpg.webp' %}"></p>
+                <h2>Роналду уйдет из "Аль-Насра"? Назван новый клуб португальца</h2>
+                <div class="clear">Нападающий "Аль-Насра" из Саудовской Аравии Криштиану Роналду желает вернуться в
+                    Мадрид и покинуть Саудовскую Аравию, сообщает корреспондент Vesti.kz.</div>
+                <p class="link-read-post"><a href="">Читать дальше</a></p>
+            </li>
+        </ul>
+    </div>
+</div>
 {% endblock %}
