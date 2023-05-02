@@ -248,21 +248,21 @@ class ContactFormView(PlayersMixin, FormView):
 
 
 def pagenotfound(request, exception):
-    return render(request, 'website/404.html')
+    return render(request, 'website/error.html', {'error': 'Page Not Found'})
 
 
 def accessforbiden(request, exception):
     # return HttpResponseNotFound('<h1>Access forbidden</h1>')
-    return render(request, 'website/404.html')
+    return render(request, 'website/error.html', {'error': 'Access Forbidden'})
 
 
 # def servererror(request, exception):
 #     # return HttpResponseNotFound('<h1>Error Server</h1>')
-#     return render(request, 'website/404.html')
+#     return render(request, 'website/error.html')
 
 def servererror(request, *args, **argv):
-    return render(request, 'website/404.html', status=500)
+    return render(request, 'website/error.html', {'error': 'Server Error'},status=500)
 
 def error(request, exception):
     # return HttpResponseNotFound('<h1>Error</h1>')
-    return render(request, 'website/404.html')
+    return render(request, 'website/error.html', {'error': 'Error'})
