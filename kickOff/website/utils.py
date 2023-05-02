@@ -2,7 +2,7 @@ from website.models import *
 
 
 class PlayersMixin:
-    paginate_by = 2
+    paginate_by = 5
     def get_user_context(self, **kwargs):
         context = kwargs
         clubs = Club.objects.all()
